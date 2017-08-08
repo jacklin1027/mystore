@@ -26,7 +26,7 @@ SECRET_KEY = 'ibh7xwq^ll^s+z!1wsvmox-cth(jsd&t#(93(16*s*i-4smc&0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'polar-citadel-15041.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'glacial-mountain-67975.herokuapp.com']
 
 # Application definition
 
