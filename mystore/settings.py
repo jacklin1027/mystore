@@ -26,7 +26,7 @@ SECRET_KEY = 'ibh7xwq^ll^s+z!1wsvmox-cth(jsd&t#(93(16*s*i-4smc&0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-LLOWED_HOSTS = ['localhost', 'polar-citadel-15041.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'polar-citadel-15041.herokuapp.com']
 
 # Application definition
 
@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
