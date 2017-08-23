@@ -18,13 +18,18 @@ class Product(models.Model):
         return self.title
 
 class Cart(models.Model):
-    items = models.ManyToManyField(Product)
+    items = models.ManyToManyField(Product, through='Cart_Items')
 
     def total_price(self):
         sum = 0
-        for product in self.items.all():
-            sum += product.price
+        for cart_item in self.cart_items_set.all():
+            sum += cart_item.product.price * cart_item.quantity
         return sum
+
+class Cart_Items(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(verbose_name='數量', default=1)
 
 class OrderInfo(models.Model):
     billing_name = models.CharField(max_length=255, verbose_name='購買人姓名')
@@ -41,6 +46,7 @@ class Order(models.Model):
     is_paid = models.BooleanField(default=False)
     payment_method = models.CharField(max_length=255, default='')
     state = FSMField(default='order_placed')
+    created = models.DateTimeField(auto_now_add=True)
 
     @transition(field=state, source='order_placed', target='paid')
     def make_payment(self):
@@ -68,4 +74,4 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order)
     title = models.CharField(max_length=255, verbose_name='產品名稱')
     price = models.IntegerField(verbose_name='價格')
-    quantity = models.IntegerField(verbose_name='數量')
+    quantity = models.PositiveIntegerField(verbose_name='數量', default=1)
